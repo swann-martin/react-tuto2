@@ -33,6 +33,7 @@ const Contact = () => {
         animate="in"
         exit="out"
         variants={variants}
+        transition={transition}
       >
         <Navigation />
         <Logo />
