@@ -1,10 +1,89 @@
-import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import { Project1, Project2, Project3, Project4 } from "./pages/Projects";
 
 const App = () => {
+  const location = useLocation;
+  console.log("location:", location);
+  const history = useHistory();
+  console.log("history", history);
+  console.log(window.location.href.toString());
+
+  useEffect(() => {
+    let mouseWheelEvt = /Firefox/i.test(navigator.userAgent)
+      ? "DOMMouseScroll"
+      : "wheel";
+
+    console.log(mouseWheelEvt);
+    const handleScrollToElement = (e) => {
+      console.log("scroll " + e.wheelDeltaY);
+      const url = window.location.origin + "/";
+    };
+    const handleScrollToElementFF = (e) => {
+      console.log("scroll " + e.detail);
+
+      const url = window.location.origin + "/";
+
+      const wheelRouter = (after, before) => {
+        if (e.detail < 0) {
+          setTimeout(() => {
+            history.push(after);
+          }, 500);
+        } else if (e.detail > 0) {
+          setTimeout(() => {
+            history.push(before);
+          }, 500);
+        }
+      };
+
+      switch (window.location.href.toString()) {
+        case url:
+          if (e.detail < 0) {
+            setTimeout(() => {
+              history.push("project-1");
+            }, 500);
+          }
+          break;
+        case url + "project-1":
+          wheelRouter("project-2", url);
+          break;
+        case url + "project-2":
+          wheelRouter("project-3", "project-1");
+          break;
+        case url + "project-3":
+          wheelRouter("project-4", "project-2");
+          break;
+        case url + "project-4":
+          wheelRouter("contact", "project-3");
+          break;
+        case url + "contact":
+          if (e.detail > 0) {
+            setTimeout(() => {
+              history.push("project-4");
+            }, 500);
+          }
+
+          break;
+        default:
+          console.log("nothing");
+      }
+    };
+
+    if (mouseWheelEvt === "wheel") {
+      window.addEventListener("wheel", handleScrollToElement);
+    } else {
+      window.addEventListener(mouseWheelEvt, handleScrollToElementFF);
+    }
+  }, [history]);
+
   return (
     <Switch>
       <Route exact path="/" component={Home} />
