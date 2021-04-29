@@ -6,7 +6,11 @@ const Project = (props) => {
   const [currentProject] = useState(projectsData);
   const project = currentProject[props.projectNumber];
 
-  console.log(project);
+  // random background circles
+
+  let left = Math.floor(Math.random() * 200 + 700) + "px";
+  let top = Math.floor(Math.random() * 200 + 150) + "px";
+  let size = "scale(" + Math.random() + 0.7 + ")";
 
   return (
     <div className="project-main">
@@ -32,6 +36,10 @@ const Project = (props) => {
           </a>
         </div>
       </div>
+      <span
+        className="random-circle"
+        style={{ left, top, transform: size }}
+      ></span>
     </div>
   );
 };
