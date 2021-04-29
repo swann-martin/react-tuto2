@@ -9,6 +9,7 @@ import {
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import { Project1, Project2, Project3, Project4 } from "./pages/Projects";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
   const location = useLocation;
@@ -33,11 +34,11 @@ const App = () => {
       const url = window.location.origin + "/";
 
       const wheelRouter = (after, before) => {
-        if (e.detail < 0) {
+        if (e.detail > 0) {
           setTimeout(() => {
             history.push(after);
           }, 500);
-        } else if (e.detail > 0) {
+        } else if (e.detail < 0) {
           setTimeout(() => {
             history.push(before);
           }, 500);
@@ -46,7 +47,7 @@ const App = () => {
 
       switch (window.location.href.toString()) {
         case url:
-          if (e.detail < 0) {
+          if (e.detail > 0) {
             setTimeout(() => {
               history.push("project-1");
             }, 500);
@@ -65,7 +66,7 @@ const App = () => {
           wheelRouter("contact", "project-3");
           break;
         case url + "contact":
-          if (e.detail > 0) {
+          if (e.detail < 0) {
             setTimeout(() => {
               history.push("project-4");
             }, 500);
@@ -85,15 +86,17 @@ const App = () => {
   }, [history]);
 
   return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/contact" component={Contact} />
-      <Route exact path="/project-1" component={Project1} />
-      <Route exact path="/project-2" component={Project2} />
-      <Route exact path="/project-3" component={Project3} />
-      <Route exact path="/project-4" component={Project4} />
-      <Redirect to="/" />
-    </Switch>
+    <AnimatePresence>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/contact" component={Contact} />
+        <Route exact path="/project-1" component={Project1} />
+        <Route exact path="/project-2" component={Project2} />
+        <Route exact path="/project-3" component={Project3} />
+        <Route exact path="/project-4" component={Project4} />
+        <Redirect to="/" />
+      </Switch>
+    </AnimatePresence>
   );
 };
 

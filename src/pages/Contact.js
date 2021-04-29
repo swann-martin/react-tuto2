@@ -6,12 +6,34 @@ import ButtonsBottom from "../components/ButtonsBottom";
 import Logo from "../components/Logo";
 import CopyToClipboard from "react-copy-to-clipboard";
 import ContactForm from "../components/ContactForm";
+import { motion } from "framer-motion";
 
 const Contact = () => {
+  const variants = {
+    in: {
+      opacity: 1,
+      x: 0,
+    },
+    out: {
+      opacity: 0.4,
+      x: -300,
+    },
+  };
+  const transition = {
+    ease: [0.3, 0.87, 0.73, 0.9],
+    duration: 0.6,
+  };
+
   return (
     <main>
       <Mouse />
-      <div className="contact">
+      <motion.div
+        className="contact"
+        initial="out"
+        animate="in"
+        exit="out"
+        variants={variants}
+      >
         <Navigation />
         <Logo />
         <ContactForm />
@@ -64,7 +86,7 @@ const Contact = () => {
           </div>
         </div>
         <ButtonsBottom left={"/project-4"} />
-      </div>
+      </motion.div>
     </main>
   );
 };
