@@ -1,4 +1,15 @@
-# Getting Started with Create React App
+# React-Vitrine
+
+This project was made following a youtube tutorial to learn React.js. It was made with JS and Sass.
+This project was bootstrapped with Create React App.
+
+Once downloaded, in the project directory, you should install the node_modules by running in your terminal:
+
+> `npm i`
+
+![home](public/assets/img/Screenshot-Home.png)
+![about](public/assets/img/Screenshot-Project.png)
+![about](public/assets/img/Screenshot-Contact.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
